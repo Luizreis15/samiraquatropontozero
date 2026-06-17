@@ -1,0 +1,5 @@
+.DS_Store
+.claude/
+screenshots/
+.vscode/
+supabase/.temp/
