@@ -177,6 +177,7 @@ function buildAdminEmail(payload: {
   telefone: string;
   email: string;
   convidados: number;
+  criancas: number;
   acompanhantes: string;
   observacoes: string;
   created_at: string;
@@ -203,7 +204,8 @@ function buildAdminEmail(payload: {
           <tr><td style="font-family:monospace;font-size:11px;color:#A9803F;letter-spacing:0.08em;padding:10px 8px;border-bottom:1px solid #EDE4DA;width:40%">NOME</td><td style="font-size:16px;font-weight:700;padding:10px 8px;border-bottom:1px solid #EDE4DA">${payload.nome}</td></tr>
           <tr><td style="font-family:monospace;font-size:11px;color:#A9803F;letter-spacing:0.08em;padding:10px 8px;border-bottom:1px solid #EDE4DA">WHATSAPP</td><td style="padding:10px 8px;border-bottom:1px solid #EDE4DA">${payload.telefone || "—"}</td></tr>
           <tr><td style="font-family:monospace;font-size:11px;color:#A9803F;letter-spacing:0.08em;padding:10px 8px;border-bottom:1px solid #EDE4DA">EMAIL</td><td style="padding:10px 8px;border-bottom:1px solid #EDE4DA">${payload.email}</td></tr>
-          <tr><td style="font-family:monospace;font-size:11px;color:#A9803F;letter-spacing:0.08em;padding:10px 8px;border-bottom:1px solid #EDE4DA">CONVIDADOS</td><td style="padding:10px 8px;border-bottom:1px solid #EDE4DA">${payload.convidados || 1}</td></tr>
+          <tr><td style="font-family:monospace;font-size:11px;color:#A9803F;letter-spacing:0.08em;padding:10px 8px;border-bottom:1px solid #EDE4DA">ADULTOS</td><td style="padding:10px 8px;border-bottom:1px solid #EDE4DA">${payload.convidados || 1}</td></tr>
+          <tr><td style="font-family:monospace;font-size:11px;color:#A9803F;letter-spacing:0.08em;padding:10px 8px;border-bottom:1px solid #EDE4DA">CRIANÇAS</td><td style="padding:10px 8px;border-bottom:1px solid #EDE4DA">${payload.criancas || 0}</td></tr>
           <tr><td style="font-family:monospace;font-size:11px;color:#A9803F;letter-spacing:0.08em;padding:10px 8px;border-bottom:1px solid #EDE4DA">ACOMPANHANTES</td><td style="padding:10px 8px;border-bottom:1px solid #EDE4DA">${payload.acompanhantes || "—"}</td></tr>
           <tr><td style="font-family:monospace;font-size:11px;color:#A9803F;letter-spacing:0.08em;padding:10px 8px">OBSERVAÇÕES</td><td style="padding:10px 8px">${payload.observacoes || "—"}</td></tr>
         </table>
@@ -240,7 +242,7 @@ Deno.serve(async (req) => {
 
   try {
     const body = await req.json();
-    const { nome, telefone, email, convidados, acompanhantes, observacoes } = body;
+    const { nome, telefone, email, convidados, criancas, acompanhantes, observacoes } = body;
 
     if (!nome || !email) {
       return new Response(JSON.stringify({ error: "Nome e email são obrigatórios." }), {
@@ -250,7 +252,7 @@ Deno.serve(async (req) => {
     }
 
     const created_at = new Date().toISOString();
-    const dbPayload = { nome, telefone, email, convidados: convidados || 0, acompanhantes: acompanhantes || "", observacoes: observacoes || "", created_at };
+    const dbPayload = { nome, telefone, email, convidados: convidados || 0, criancas: criancas || 0, acompanhantes: acompanhantes || "", observacoes: observacoes || "", created_at };
 
     const supabase = createClient(SUPABASE_URL, SUPABASE_SERVICE_KEY);
     const { error: dbError } = await supabase.from("confirmacoes").insert(dbPayload);

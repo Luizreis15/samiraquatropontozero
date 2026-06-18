@@ -34,6 +34,10 @@
   .recanto-grid{grid-template-columns:1.1fr .9fr}
   .map-grid{grid-template-columns:.85fr 1.15fr}
 
+  /* ---- Modal ---- */
+  #modal-inner::-webkit-scrollbar{width:4px}
+  #modal-inner::-webkit-scrollbar-thumb{background:rgba(201,139,155,.4);border-radius:2px}
+
   /* ---- Mobile (até 767px) ---- */
   @media (max-width:767px){
     #hero{min-height:100svh}
@@ -55,7 +59,8 @@
     .map-grid{grid-template-columns:1fr !important}
     .map-grid > div:last-child{aspect-ratio:16/11}
 
-    #form-fields{grid-template-columns:1fr !important;gap:16px !important}
+    #form-fields{grid-template-columns:1fr !important;gap:14px !important}
+    #modal-inner{border-radius:20px !important;padding:28px 18px 34px !important;margin:8px}
 
     #float-cta{right:12px;bottom:12px;padding:13px 18px;font-size:13px}
     footer .foot-link{font-size:13px}
@@ -108,13 +113,12 @@
     <div style="position:relative;z-index:2;max-width:1100px;width:100%;padding:0 28px;text-align:center;color:#F8F5F2">
       <h1 id="hero-title" style="font-family:'Cormorant Garamond',serif;font-weight:300;font-size:clamp(4.2rem,15vw,12rem);line-height:.86;letter-spacing:-.03em;margin:0 0 6px">Samira <span style="background:linear-gradient(180deg,#E8C4CE,#C98B9B 45%,#A8596A);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;font-weight:400">4.0</span></h1>
       <div class="reveal" style="transition:opacity .9s cubic-bezier(.22,1,.36,1) .15s,transform .9s cubic-bezier(.22,1,.36,1) .15s">
-        <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(1.4rem,3.6vw,2.4rem);line-height:1.18;letter-spacing:.01em;margin:28px 0 10px;color:rgba(248,245,242,.88)">[FRASE PERSONALIZADA — A DEFINIR]</p>
-        <p style="max-width:640px;margin:0 auto 32px;font-size:clamp(15px,1.5vw,18px);line-height:1.7;color:rgba(248,245,242,.75)">No dia 04 de julho vamos celebrar a vida, os encontros e as histórias que nos trouxeram até aqui. Uma tarde especial cercada por pessoas especiais.</p>
-        <div class="hero-info-row" style="display:flex;flex-wrap:wrap;gap:16px 28px;justify-content:center;align-items:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(1rem,1.8vw,1.25rem);color:rgba(233,217,206,.9);margin-bottom:42px">
+        <p style="font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(1.3rem,3.2vw,2.2rem);line-height:1.22;letter-spacing:.01em;margin:20px 0 22px;color:rgba(248,245,242,.88)">[FRASE PERSONALIZADA — A DEFINIR]</p>
+        <div class="hero-info-row" style="display:flex;flex-wrap:wrap;gap:12px 24px;justify-content:center;align-items:center;font-family:'Cormorant Garamond',serif;font-style:italic;font-size:clamp(.95rem,1.7vw,1.2rem);color:rgba(233,217,206,.9);margin-bottom:28px">
           <span>04 de julho de 2026</span><span style="color:#C98B9B;font-style:normal">·</span><span>A partir das 15h</span><span style="color:#C98B9B;font-style:normal">·</span><span>Recanto Paraíso</span><span style="color:#C98B9B;font-style:normal">·</span><span>Mairiporã</span>
         </div>
         <div style="display:flex;flex-wrap:wrap;gap:16px;justify-content:center">
-          <a href="#confirmar" class="btn-primary" style="display:inline-flex;align-items:center;gap:10px;padding:17px 38px;border-radius:14px;background:linear-gradient(135deg,#E7CF94,#D4B06A 55%,#B68C45);color:#4A1B28;font-weight:600;font-size:15px;letter-spacing:.02em;text-decoration:none;position:relative;overflow:hidden;box-shadow:0 12px 34px rgba(0,0,0,.32);transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s">Confirme sua presença</a>
+          <a href="#" class="btn-primary open-modal" style="display:inline-flex;align-items:center;gap:10px;padding:17px 38px;border-radius:14px;background:linear-gradient(135deg,#E7CF94,#D4B06A 55%,#B68C45);color:#4A1B28;font-weight:600;font-size:15px;letter-spacing:.02em;text-decoration:none;position:relative;overflow:hidden;box-shadow:0 12px 34px rgba(0,0,0,.32);transition:transform .5s cubic-bezier(.22,1,.36,1),box-shadow .5s">Confirme sua presença</a>
           <a href="#como-chegar" class="btn-ghost" style="display:inline-flex;align-items:center;gap:10px;padding:16px 34px;border-radius:14px;background:rgba(248,245,242,.04);color:#F8F5F2;font-weight:500;font-size:15px;letter-spacing:.02em;text-decoration:none;border:1px solid rgba(201,139,155,.5);transition:background .5s,border-color .5s,transform .5s">Como Chegar</a>
         </div>
       </div>
@@ -224,23 +228,6 @@
     </div>
   </section>
 
-  <!-- ============ 7. FORMULÁRIO ============ -->
-  <section id="confirmar" data-screen-label="Confirmação" style="position:relative;z-index:1;background:#5E2433;padding:clamp(80px,13vw,160px) 24px;overflow:hidden">
-    <div style="position:absolute;width:60vw;height:60vw;left:50%;top:30%;transform:translateX(-50%);background:radial-gradient(circle,rgba(201,139,155,.2),transparent 60%);filter:blur(36px);pointer-events:none"></div>
-    <div style="position:relative;max-width:720px;margin:0 auto">
-      <div style="text-align:center;margin-bottom:clamp(34px,5vw,56px)">
-        <div class="reveal" style="transition:opacity .9s cubic-bezier(.22,1,.36,1),transform .9s cubic-bezier(.22,1,.36,1);font-family:'Hanken Grotesk',sans-serif;font-weight:300;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:#C98B9B;margin-bottom:22px">confirmação de presença</div>
-        <h2 class="reveal" style="transition:opacity .95s cubic-bezier(.22,1,.36,1) .08s,transform .95s cubic-bezier(.22,1,.36,1) .08s;font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(2.4rem,5.4vw,4rem);letter-spacing:-.02em;color:#F8F5F2;margin-bottom:16px">Confirme sua presença</h2>
-        <p class="reveal" style="transition:opacity 1s cubic-bezier(.22,1,.36,1) .16s,transform 1s cubic-bezier(.22,1,.36,1) .16s;font-size:17px;line-height:1.6;color:rgba(248,245,242,.78)">Sua confirmação é indispensável para que possamos receber você com todo o carinho.</p>
-      </div>
-      <form id="rsvp-form" novalidate class="reveal" style="transition:opacity 1s cubic-bezier(.22,1,.36,1) .12s,transform 1s cubic-bezier(.22,1,.36,1) .12s;background:rgba(248,245,242,.06);backdrop-filter:blur(22px);-webkit-backdrop-filter:blur(22px);border:1px solid rgba(201,139,155,.3);border-radius:24px;padding:clamp(24px,4vw,46px);box-shadow:0 30px 80px rgba(0,0,0,.4)">
-        <div id="form-fields" style="display:grid;grid-template-columns:1fr 1fr;gap:20px">
-          <div class="field" data-col="full" style="grid-column:1/-1"></div>
-        </div>
-      </form>
-    </div>
-  </section>
-
   <!-- ============ FAQ ============ -->
   <section id="faq" data-screen-label="FAQ" style="position:relative;z-index:1;background:#F8F5F2;padding:clamp(80px,12vw,150px) 24px">
     <div style="max-width:820px;margin:0 auto">
@@ -283,7 +270,25 @@
   </footer>
 
   <!-- ============ FLOATING CTA ============ -->
-  <a id="float-cta" href="#confirmar" style="position:fixed;right:22px;bottom:22px;z-index:120;display:inline-flex;align-items:center;gap:9px;padding:15px 24px;border-radius:50px;background:rgba(94,36,51,.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(201,139,155,.55);color:#F8F5F2;font-weight:600;font-size:14px;text-decoration:none;animation:floatPulse 3.4s ease-in-out infinite;transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1)">
+  <!-- ============ MODAL RSVP ============ -->
+  <div id="modal-rsvp" role="dialog" aria-modal="true" aria-labelledby="modal-title" style="position:fixed;inset:0;z-index:300;display:none;align-items:center;justify-content:center;padding:20px;background:rgba(28,9,15,0);backdrop-filter:blur(0px);-webkit-backdrop-filter:blur(0px);transition:background .4s,backdrop-filter .4s,-webkit-backdrop-filter .4s">
+    <div id="modal-inner" style="position:relative;width:min(680px,100%);max-height:92vh;overflow-y:auto;background:linear-gradient(160deg,#5E2433 0%,#3F1722 100%);border-radius:24px;padding:clamp(32px,5vw,52px) clamp(22px,4vw,46px) 38px;box-shadow:0 32px 90px rgba(0,0,0,.65),0 0 0 1px rgba(201,139,155,.22);transform:translateY(28px) scale(.96);opacity:0;transition:transform .45s cubic-bezier(.22,1,.36,1),opacity .35s">
+      <div style="position:absolute;width:60%;height:60%;left:50%;top:10%;transform:translateX(-50%);background:radial-gradient(circle,rgba(201,139,155,.18),transparent 65%);filter:blur(28px);pointer-events:none"></div>
+      <button id="modal-close" aria-label="Fechar" style="position:absolute;top:16px;right:16px;z-index:2;width:38px;height:38px;border-radius:50%;background:rgba(248,245,242,.08);border:1px solid rgba(201,139,155,.28);color:rgba(248,245,242,.75);font-size:22px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .3s">×</button>
+      <div style="position:relative;z-index:1;text-align:center;margin-bottom:clamp(22px,3.6vw,34px)">
+        <div style="font-family:'Hanken Grotesk',sans-serif;font-weight:300;font-size:11px;letter-spacing:.32em;text-transform:uppercase;color:#C98B9B;margin-bottom:14px">confirmação de presença</div>
+        <h2 id="modal-title" style="font-family:'Cormorant Garamond',serif;font-weight:400;font-size:clamp(1.9rem,4.8vw,3rem);letter-spacing:-.02em;color:#F8F5F2;margin-bottom:10px">Confirme sua presença</h2>
+        <p style="font-size:15px;line-height:1.6;color:rgba(248,245,242,.68)">Sua confirmação é indispensável para que possamos receber você com todo o carinho.</p>
+      </div>
+      <div style="position:relative;z-index:1">
+        <form id="rsvp-form" novalidate>
+          <div id="form-fields" style="display:grid;grid-template-columns:1fr 1fr;gap:18px"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <a id="float-cta" href="#" class="open-modal" style="position:fixed;right:22px;bottom:22px;z-index:120;display:inline-flex;align-items:center;gap:9px;padding:15px 24px;border-radius:50px;background:rgba(94,36,51,.55);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(201,139,155,.55);color:#F8F5F2;font-weight:600;font-size:14px;text-decoration:none;animation:floatPulse 3.4s ease-in-out infinite;transition:opacity .5s cubic-bezier(.22,1,.36,1),transform .5s cubic-bezier(.22,1,.36,1)">
     <span style="width:8px;height:8px;border-radius:50%;background:#C98B9B;box-shadow:0 0 10px #C98B9B"></span>Confirme sua presença
   </a>
 
@@ -306,6 +311,7 @@ class Component extends DCLogic {
     this.runPreloader();
     this.setupReveal();
     this.setupCountdown();
+    this.setupModal();
     this.setupFloating();
     this.setupParallax();
     if (this.autoplayHero && !this.reduce) this.setupCarousel();
@@ -409,15 +415,13 @@ class Component extends DCLogic {
 
   /* ---------- FLOATING CTA ---------- */
   setupFloating() {
-    const cta = this.q('#float-cta'), form = this.q('#confirmar'), hero = this.q('#hero');
+    const cta = this.q('#float-cta'), hero = this.q('#hero');
     if (!cta) return;
     cta.style.opacity='0'; cta.style.transform='translateY(20px) scale(.9)';
     const show=()=>{cta.style.opacity='1';cta.style.transform='none';};
     const hide=()=>{cta.style.opacity='0';cta.style.transform='translateY(20px) scale(.9)';};
     const ioHero = new IntersectionObserver(es=>es.forEach(e=>{ e.isIntersecting?hide():show(); }), {threshold:0.4});
     if (hero) ioHero.observe(hero);
-    const ioForm = new IntersectionObserver(es=>es.forEach(e=>{ if(e.isIntersecting) hide(); else if(window.scrollY>window.innerHeight*0.6) show(); }), {threshold:0.25});
-    if (form) ioForm.observe(form);
   }
 
   /* ---------- EXPERIENCE ---------- */
@@ -451,9 +455,10 @@ class Component extends DCLogic {
       ['nome','Nome Completo','text','full',true],
       ['telefone','WhatsApp','tel','half',true],
       ['email','Email','email','half',true],
-      ['convidados','Número de convidados','number','half',false],
-      ['acompanhantes','Nome dos acompanhantes','text','half',false],
-      ['observacoes','Observações','textarea','full',false]
+      ['convidados','Número de adultos','number','half',false],
+      ['criancas','Número de crianças','number','half',false],
+      ['acompanhantes','Nome dos acompanhantes','text','full',false],
+      ['observacoes','Observações / alergias','textarea','full',false]
     ];
     wrap.innerHTML = fields.map(f=>{
       const col = f[3]==='full' ? 'grid-column:1/-1' : '';
@@ -512,6 +517,7 @@ class Component extends DCLogic {
     const payload = {
       nome, telefone: tel, email,
       convidados: parseInt(get('convidados').value)||0,
+      criancas: parseInt(get('criancas').value)||0,
       acompanhantes: get('acompanhantes').value.trim(),
       observacoes: get('observacoes').value.trim(),
       created_at: new Date().toISOString()
@@ -564,8 +570,9 @@ class Component extends DCLogic {
     const faqs = [
       ['Que horas começa?','A partir das 15h.'],
       ['Tem hora para acabar?','Não. A celebração seguirá livremente.'],
-      ['Posso levar acompanhante?','Sim. Informe no formulário.'],
-      ['Preciso confirmar?','Sim. Sua confirmação é indispensável.']
+      ['Posso levar acompanhante?','Sim. Informe o nome no formulário.'],
+      ['Posso levar crianças?','Sim! Teremos monitores dedicados às crianças. Por favor, indique o número de crianças no formulário para que possamos planejar com carinho.'],
+      ['Preciso confirmar?','Sim. Sua confirmação é indispensável para recebermos você do jeito que merece.']
     ];
     list.innerHTML = faqs.map((f,i)=>`
       <div class="faq-item reveal" data-i="${i}" style="transition:opacity .8s cubic-bezier(.22,1,.36,1) ${0.05*i}s,transform .8s cubic-bezier(.22,1,.36,1) ${0.05*i}s;border-bottom:1px solid rgba(94,36,51,.14)">
@@ -585,6 +592,40 @@ class Component extends DCLogic {
         if(!open){ ans.style.maxHeight=ans.scrollHeight+'px'; ic.style.transform='rotate(135deg)'; ic.textContent='+'; }
       });
     });
+  }
+
+  /* ---------- MODAL ---------- */
+  openModal() {
+    const modal = this.q('#modal-rsvp'), inner = this.q('#modal-inner');
+    if (!modal) return;
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+    requestAnimationFrame(()=>requestAnimationFrame(()=>{
+      modal.style.background = 'rgba(28,9,15,.8)';
+      modal.style.backdropFilter = 'blur(14px)';
+      modal.style.webkitBackdropFilter = 'blur(14px)';
+      if (inner) { inner.style.transform = 'none'; inner.style.opacity = '1'; }
+    }));
+  }
+
+  closeModal() {
+    const modal = this.q('#modal-rsvp'), inner = this.q('#modal-inner');
+    if (!modal) return;
+    if (inner) { inner.style.transform = 'translateY(28px) scale(.96)'; inner.style.opacity = '0'; }
+    modal.style.background = 'rgba(28,9,15,0)';
+    modal.style.backdropFilter = 'blur(0px)';
+    modal.style.webkitBackdropFilter = 'blur(0px)';
+    setTimeout(()=>{ modal.style.display = 'none'; document.body.style.overflow = ''; }, 440);
+  }
+
+  setupModal() {
+    const modal = this.q('#modal-rsvp');
+    if (!modal) return;
+    const closeBtn = this.q('#modal-close');
+    if (closeBtn) closeBtn.addEventListener('click', ()=>this.closeModal());
+    modal.addEventListener('click', e=>{ if (e.target === modal) this.closeModal(); });
+    document.addEventListener('keydown', e=>{ if (e.key === 'Escape' && modal.style.display === 'flex') this.closeModal(); });
+    this.qa('.open-modal').forEach(el=>{ el.addEventListener('click', e=>{ e.preventDefault(); this.openModal(); }); });
   }
 }
 </script>
